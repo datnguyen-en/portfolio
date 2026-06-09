@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Tung Ngo — Portfolio
 
-## Getting Started
+An Apple / macOS–inspired developer portfolio built with **Next.js 16 (App Router)**,
+**TypeScript**, **Tailwind CSS v4**, **Motion (Framer Motion)**, and **lucide-react**.
 
-First, run the development server:
+## Highlights
+
+- **macOS-style top bar** — frosted-glass navbar with live clock, status glyphs, active-section pill, and a dark-mode toggle.
+- **Storytelling hero** — full-screen crossfading achievement slides with Ken Burns zoom, per-slide animated captions, parallax on scroll, autoplay with progress indicators, and CTAs that scroll to the sections below.
+- **Apple-style Work grid** — product cards that expand into a shared-layout detail modal (scrollytelling).
+- **About** — bio, "What I'm doing" cards with icons, testimonials, and animated skill bars.
+- **Resume** — education & experience timelines.
+- **Contact** — integrated form + contact card with social links.
+- Monochrome palette, abundant whitespace, frosted glass, and scroll-triggered reveals throughout.
+
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # production build
+npm run lint     # eslint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Customizing content
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+All copy lives in **`src/lib/data.ts`** — edit your name, role, contact details,
+projects, resume timelines, skills, testimonials, and the hero slides there.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Adding your own images
 
-## Learn More
+Images are **optional**. Each slide/project renders a gradient backdrop by default;
+if you provide an image and it loads, it layers on top — otherwise the gradient
+stays. Drop files into `public/` and reference them from `src/lib/data.ts`:
 
-To learn more about Next.js, take a look at the following resources:
+| Purpose            | Suggested path                  | Referenced by            |
+| ------------------ | ------------------------------- | ------------------------ |
+| Profile photo      | `public/avatar.jpg`             | `profile.avatar`         |
+| Hero achievements  | `public/work/achievement-*.jpg` | `slides[].image`         |
+| Project thumbnails | `public/work/*.jpg`             | `projects[].image`       |
+| Testimonials       | `public/testimonials/*.jpg`     | `testimonials[].avatar`  |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+> Tip: 16:9 or 16:10 images look best for hero/project media.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project structure
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+src/
+  app/
+    layout.tsx        # fonts, metadata, theme boot script, ThemeProvider
+    page.tsx          # assembles all sections
+    globals.css       # theme tokens, dark mode, glass + animations
+  components/
+    theme-provider.tsx  # dark-mode store (useSyncExternalStore)
+    mac-navbar.tsx      # macOS top bar
+    hero.tsx            # storytelling slides + parallax
+    work.tsx            # expandable project grid
+    about.tsx           # bio, skills, testimonials
+    resume.tsx          # timelines
+    contact.tsx         # form + contact card
+    media.tsx           # gradient-with-optional-image helper
+    reveal.tsx          # scroll-reveal + section heading
+    brand-icons.tsx     # inline social SVGs
+  lib/
+    data.ts           # ← all content lives here
+    utils.ts          # cn() class helper
+```
