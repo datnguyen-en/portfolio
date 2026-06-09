@@ -1,4 +1,4 @@
-# Tung Ngo — Portfolio
+# Dat Nguyen — Portfolio
 
 An Apple / macOS–inspired developer portfolio built with **Next.js 16 (App Router)**,
 **TypeScript**, **Tailwind CSS v4**, **Motion (Framer Motion)**, and **lucide-react**.
